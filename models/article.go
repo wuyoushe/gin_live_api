@@ -66,3 +66,10 @@ func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
 	scope.SetColumn("ModifiedOn", time.Now().Unix())
 	return nil
 }
+
+func ClearArticle() bool {
+	//注意硬删除要使用Unscoped()，这是GORM的约定
+	db.Unscoped().Where("deleted_on != ? ", 0).Delete(&Article{})
+
+	return true
+}
