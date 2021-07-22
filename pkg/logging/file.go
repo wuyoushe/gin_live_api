@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/wuyoushe/gin_live_api/pkg/setting"
 )
 
 var (
@@ -22,6 +24,15 @@ func getLogFileFullPath() string {
 	suffixPath := fmt.Sprintf("%s%s.%s", LogSaveName, time.Now().Format(TimeFormat), LogFileExt)
 	return fmt.Sprintf("%s%s", prefixPath, suffixPath)
 }
+
+func getLogFileName() string {
+	return fmt.Sprintf("%s%s.%s",
+		setting.AppSetting.LogSaveName,
+		time.Now().Format(setting.AppSetting.TimeFormat),
+		setting.AppSetting.LogFileExt,
+	)
+}
+
 func openLogFile(filePath string) *os.File {
 	_, err := os.Stat(filePath)
 	switch {

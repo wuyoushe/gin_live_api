@@ -5,12 +5,24 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/wuyoushe/gin_live_api/models"
 	"github.com/wuyoushe/gin_live_api/pkg/logging"
 	"github.com/wuyoushe/gin_live_api/pkg/setting"
 	"github.com/wuyoushe/gin_live_api/routers"
 )
 
+// func init() {
+// 	setting.Setup()
+// 	models.Setup()
+// 	logging.Setup()
+
+// }
+
 func main() {
+	setting.Setup()
+	models.Setup()
+	logging.Setup()
+
 	engine := gin.Default()
 	engine.Use(logging.LoggerToFile())
 	router := routers.InitRouter()
